@@ -53,11 +53,84 @@ class _ProcessReportingSingleState extends State<ProcessReportingSingle> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item['processName']),
-                Text(item['executionTime']),
-                Text(item['status']),
-                Text(item['executionType']),
-                Text(item['atomName']),
+                Container(
+                  margin: EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            child: Text(item['processName'], style: TextStyle(
+                                fontSize: 16
+                            )),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 4),
+                            child: Text('Executed on ${item['atomName']}', style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              color: Theme.of(context).textTheme.caption!.color
+                            )),
+                          ),
+                        ],
+                      ),
+                      Text(item['executionTime'])
+                    ],
+                  ),
+                ),
+
+                Container(
+                  margin: EdgeInsets.only(bottom: 16),
+                  child: Row(
+                    children: [
+                      Container(
+                        color: Colors.green,
+                        child: Text(item['status']),
+                        margin: EdgeInsets.only(right: 4),
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      ),
+                      Container(
+                        color: Colors.blue,
+                        child: Text(item['executionType'].toUpperCase()),
+                        margin: EdgeInsets.only(right: 4),
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      ),
+                    ],
+                  ),
+                ),
+
+                IntrinsicHeight(
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Text('Count'),
+                          Text('${item['inboundDocumentCount']}', style: TextStyle(
+                              fontSize: 18
+                          )),
+                        ],
+                      ),
+                      VerticalDivider(),
+                      Text('Size'),
+                      VerticalDivider(),
+                      Text('Errored'),
+                    ],
+                  )
+                ),
+
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return Text('Item');
+                  },
+                  separatorBuilder: (context, index) {
+                    return VerticalDivider();
+                  },
+                ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
